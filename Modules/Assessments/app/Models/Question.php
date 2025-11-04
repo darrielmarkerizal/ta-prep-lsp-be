@@ -8,7 +8,7 @@ class Question extends Model
 {
     protected $fillable = [
         'exercise_id', 'question_text', 'type',
-        'score_weight', 'is_required', 'order'
+        'score_weight', 'is_required', 'order',
     ];
 
     public function exercise()

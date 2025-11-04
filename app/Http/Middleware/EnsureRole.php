@@ -12,14 +12,14 @@ class EnsureRole
     {
         $user = $request->user();
 
-        if (!$user) {
+        if (! $user) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Tidak terotorisasi.',
             ], 401);
         }
 
-        if (!$user->hasAnyRole($roles)) {
+        if (! $user->hasAnyRole($roles)) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Forbidden: insufficient role.',
@@ -29,5 +29,3 @@ class EnsureRole
         return $next($request);
     }
 }
-
-

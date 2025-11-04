@@ -8,7 +8,7 @@ class GradeReview extends Model
 {
     protected $fillable = [
         'grade_id', 'requested_by', 'reason', 'response',
-        'reviewed_by', 'status'
+        'reviewed_by', 'status',
     ];
 
     public function grade()

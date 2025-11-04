@@ -11,7 +11,7 @@ class Exercise extends Model
         'title', 'description', 'type',
         'time_limit_minutes', 'max_score',
         'total_questions', 'status',
-        'available_from', 'available_until'
+        'available_from', 'available_until',
     ];
 
     protected $casts = [
@@ -24,7 +24,7 @@ class Exercise extends Model
     {
         return match ($this->scope_type) {
             'course' => $this->belongsTo(\Modules\Schemes\Entities\Course::class, 'scope_id'),
-            'unit'   => $this->belongsTo(\Modules\Schemes\Entities\Unit::class, 'scope_id'),
+            'unit' => $this->belongsTo(\Modules\Schemes\Entities\Unit::class, 'scope_id'),
             'lesson' => $this->belongsTo(\Modules\Schemes\Entities\Lesson::class, 'scope_id'),
         };
     }

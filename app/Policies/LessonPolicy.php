@@ -32,5 +32,3 @@ class LessonPolicy
         return $user->can('schemes.manage');
     }
 }
-
-

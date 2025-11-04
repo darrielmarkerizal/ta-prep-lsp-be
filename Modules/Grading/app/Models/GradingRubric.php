@@ -8,7 +8,7 @@ class GradingRubric extends Model
 {
     protected $fillable = [
         'scope_type', 'scope_id', 'criteria', 'description',
-        'max_score', 'weight'
+        'max_score', 'weight',
     ];
 
     public function scope()

@@ -8,7 +8,7 @@ class Notification extends Model
 {
     protected $fillable = [
         'type', 'title', 'message', 'channel',
-        'priority', 'is_broadcast', 'scheduled_at', 'sent_at'
+        'priority', 'is_broadcast', 'scheduled_at', 'sent_at',
     ];
 
     protected $casts = [

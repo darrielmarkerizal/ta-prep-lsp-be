@@ -9,6 +9,7 @@ use Modules\Auth\Http\Requests\Concerns\HasCommonValidationMessages;
 class RegisterRequest extends FormRequest
 {
     use HasCommonValidationMessages;
+
     public function authorize(): bool
     {
         return true;
@@ -56,5 +57,3 @@ class RegisterRequest extends FormRequest
         ]);
     }
 }
-
-

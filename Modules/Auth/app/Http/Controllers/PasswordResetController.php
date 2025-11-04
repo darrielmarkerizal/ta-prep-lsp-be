@@ -3,20 +3,16 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Password as PasswordRule;
-use Modules\Auth\Http\Requests\ResetPasswordRequest;
 use Modules\Auth\Http\Requests\ChangePasswordRequest;
-use App\Support\ApiResponse;
+use Modules\Auth\Http\Requests\ResetPasswordRequest;
 use Modules\Auth\Mail\ResetPasswordMail;
-use Modules\Auth\Models\User;
 use Modules\Auth\Models\PasswordResetToken;
+use Modules\Auth\Models\User;
 
 class PasswordResetController extends Controller
 {
@@ -36,7 +32,7 @@ class PasswordResetController extends Controller
 
         /** @var User|null $user */
         $user = User::query()->where('email', $validated['email'])->first();
-        if (!$user) {
+        if (! $user) {
             return $this->success([], 'Jika email terdaftar, kami telah mengirimkan instruksi reset kata sandi.');
         }
 
@@ -81,19 +77,21 @@ class PasswordResetController extends Controller
             }
         }
 
-        if (!$matched) {
+        if (! $matched) {
             return $this->error('Token reset tidak valid atau telah kedaluwarsa.', 422);
         }
 
         /** @var User|null $user */
         $user = User::query()->where('email', $matched->email)->first();
-        if (!$user) {
+        if (! $user) {
             PasswordResetToken::query()->where('email', $matched->email)->delete();
+
             return $this->error('Pengguna tidak ditemukan.', 404);
         }
 
         if (now()->diffInMinutes($matched->created_at) > $ttlMinutes) {
             PasswordResetToken::query()->where('email', $matched->email)->delete();
+
             return $this->error('Token reset telah kedaluwarsa.', 422);
         }
 
@@ -110,11 +108,11 @@ class PasswordResetController extends Controller
     {
         /** @var User|null $user */
         $user = auth('api')->user();
-        if (!$user) {
+        if (! $user) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
-        if (!Hash::check($request->string('current_password'), $user->password)) {
+        if (! Hash::check($request->string('current_password'), $user->password)) {
             return $this->error('Password lama tidak cocok.', 422);
         }
 
@@ -125,5 +123,3 @@ class PasswordResetController extends Controller
         return $this->success([], 'Kata sandi berhasil diperbarui.');
     }
 }
-
-

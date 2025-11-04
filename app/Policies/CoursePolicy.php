@@ -32,5 +32,3 @@ class CoursePolicy
         return $user->can('schemes.manage');
     }
 }
-
-

@@ -27,8 +27,7 @@ trait ApiResponse
         if ($errors !== null) {
             $body['errors'] = $errors;
         }
+
         return response()->json($body, $status);
     }
 }
-
-

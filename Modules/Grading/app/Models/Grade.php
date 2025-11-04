@@ -8,7 +8,7 @@ class Grade extends Model
 {
     protected $fillable = [
         'source_type', 'source_id', 'user_id', 'graded_by',
-        'score', 'max_score', 'feedback', 'status', 'graded_at'
+        'score', 'max_score', 'feedback', 'status', 'graded_at',
     ];
 
     protected $casts = [

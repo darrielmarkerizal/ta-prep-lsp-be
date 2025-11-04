@@ -9,7 +9,7 @@ class Assignment extends Model
     protected $fillable = [
         'lesson_id', 'created_by', 'title', 'description',
         'type', 'submission_type', 'max_score',
-        'available_from', 'deadline_at', 'status'
+        'available_from', 'deadline_at', 'status',
     ];
 
     protected $casts = [

@@ -4,15 +4,16 @@ namespace Modules\Auth\Services;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Modules\Auth\Mail\ChangeEmailVerificationMail;
+use Modules\Auth\Mail\VerifyEmailLinkMail;
 use Modules\Auth\Models\OtpCode;
 use Modules\Auth\Models\User;
 use Modules\Common\Models\SystemSetting;
-use Modules\Auth\Mail\VerifyEmailLinkMail;
-use Modules\Auth\Mail\ChangeEmailVerificationMail;
 
 class EmailVerificationService
 {
     public const PURPOSE = 'register_verification';
+
     public const PURPOSE_CHANGE_EMAIL = 'email_change_verification';
 
     public function sendVerificationLink(User $user): ?string
@@ -59,7 +60,7 @@ class EmailVerificationService
             ->latest('id')
             ->first();
 
-        if (!$otp) {
+        if (! $otp) {
             return ['status' => 'not_found'];
         }
 
@@ -71,18 +72,18 @@ class EmailVerificationService
             return ['status' => 'expired'];
         }
 
-        if (!hash_equals($otp->code, $code)) {
+        if (! hash_equals($otp->code, $code)) {
             return ['status' => 'invalid'];
         }
 
         $user = User::query()->find($otp->user_id);
-        if (!$user) {
+        if (! $user) {
             return ['status' => 'not_found'];
         }
 
         $otp->markAsConsumed();
 
-        if (!$user->email_verified_at || $user->status !== 'active') {
+        if (! $user->email_verified_at || $user->status !== 'active') {
             $user->forceFill([
                 'email_verified_at' => now(),
                 'status' => 'active',
@@ -112,7 +113,7 @@ class EmailVerificationService
             'provider' => 'mailhog',
             'purpose' => self::PURPOSE_CHANGE_EMAIL,
             'code' => $code,
-            'meta' => [ 'new_email' => $newEmail ],
+            'meta' => ['new_email' => $newEmail],
             'expires_at' => now()->addMinutes($ttlMinutes),
         ]);
 
@@ -132,7 +133,7 @@ class EmailVerificationService
             ->latest('id')
             ->first();
 
-        if (!$otp) {
+        if (! $otp) {
             return ['status' => 'not_found'];
         }
 
@@ -144,17 +145,17 @@ class EmailVerificationService
             return ['status' => 'expired'];
         }
 
-        if (!hash_equals($otp->code, $code)) {
+        if (! hash_equals($otp->code, $code)) {
             return ['status' => 'invalid'];
         }
 
         $user = User::query()->find($otp->user_id);
-        if (!$user) {
+        if (! $user) {
             return ['status' => 'not_found'];
         }
 
         $newEmail = $otp->meta['new_email'] ?? null;
-        if (!$newEmail) {
+        if (! $newEmail) {
             return ['status' => 'invalid'];
         }
 
@@ -173,5 +174,3 @@ class EmailVerificationService
         return ['status' => 'ok'];
     }
 }
-
-

@@ -2,10 +2,10 @@
 
 namespace Modules\Common\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Auth;
 
 class AuditLog extends Model
@@ -94,6 +94,7 @@ class AuditLog extends Model
     public function scopeForUser($query, $user)
     {
         $userId = is_object($user) ? $user->id : $user;
+
         return $query->where('user_id', $userId);
     }
 
@@ -126,4 +127,3 @@ class AuditLog extends Model
         ]);
     }
 }
-

@@ -30,5 +30,3 @@ class VerifyEmailLinkMail extends Mailable
             ]);
     }
 }
-
-

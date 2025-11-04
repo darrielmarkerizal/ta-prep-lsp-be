@@ -2,8 +2,8 @@
 
 namespace Modules\Common\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class SystemSetting extends Model
 {
@@ -102,7 +102,7 @@ class SystemSetting extends Model
     public static function get(string $key, $default = null): mixed
     {
         $setting = static::find($key);
-        
+
         return $setting ? $setting->typed_value : $default;
     }
 
@@ -117,4 +117,3 @@ class SystemSetting extends Model
         )->setValue($value)->save();
     }
 }
-

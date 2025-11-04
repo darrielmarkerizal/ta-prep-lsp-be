@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Schemes\Entities\CourseTag;
-use Modules\Schemes\Entities\Unit;
 
 class Course extends Model
 {
@@ -19,7 +17,7 @@ class Course extends Model
         'level_tag', 'category', 'tags_json', 'outcomes_json',
         'prereq_text', 'duration_estimate', 'thumbnail_path',
         'banner_path', 'visibility', 'progression_mode',
-        'status', 'published_at', 'instructor_id'
+        'status', 'published_at', 'instructor_id',
     ];
 
     protected $casts = [

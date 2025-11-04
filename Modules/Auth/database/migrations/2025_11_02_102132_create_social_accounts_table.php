@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->string('refresh_token')->nullable();
             $table->timestamps();
-        
+
             $table->unique(['provider_name', 'provider_id']);
-        });        
+        });
     }
 
     /**

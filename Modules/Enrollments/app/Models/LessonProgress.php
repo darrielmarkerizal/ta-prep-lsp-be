@@ -11,7 +11,7 @@ class LessonProgress extends Model
     protected $fillable = [
         'enrollment_id', 'lesson_id', 'status',
         'progress_percent', 'attempt_count',
-        'started_at', 'completed_at'
+        'started_at', 'completed_at',
     ];
 
     protected $casts = [

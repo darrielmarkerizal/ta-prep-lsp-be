@@ -4,20 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('otp_codes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('channel', ['email']); 
+            $table->enum('channel', ['email']);
             $table->string('provider', 50)->nullable();
 
             $table->enum('purpose', [
-                'register_verification',    
-                'password_reset',           
+                'register_verification',
+                'password_reset',
                 'email_change_verification',
-                'two_factor_auth',          
+                'two_factor_auth',
             ]);
 
             $table->string('code', 20);

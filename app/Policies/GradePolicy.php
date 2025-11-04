@@ -32,5 +32,3 @@ class GradePolicy
         return $user->can('grading.view');
     }
 }
-
-

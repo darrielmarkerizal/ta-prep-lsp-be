@@ -37,5 +37,3 @@ class AssignmentPolicy
         return $user->can('learning.tasks.submit');
     }
 }
-
-

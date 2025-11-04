@@ -2,12 +2,10 @@
 
 namespace Modules\Auth\Repositories;
 
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Modules\Auth\Interfaces\AuthRepositoryInterface;
 use Modules\Auth\Models\JwtRefreshToken;
 use Modules\Auth\Models\User;
-use Modules\Auth\Interfaces\AuthRepositoryInterface;
 
 class AuthRepository implements AuthRepositoryInterface
 {
@@ -62,6 +60,7 @@ class AuthRepository implements AuthRepositoryInterface
     public function findValidRefreshRecordByUser(string $plainToken, int $userId): ?JwtRefreshToken
     {
         $hashed = hash('sha256', $plainToken);
+
         return JwtRefreshToken::query()
             ->where('user_id', $userId)
             ->where('token', $hashed)
@@ -69,5 +68,3 @@ class AuthRepository implements AuthRepositoryInterface
             ->first();
     }
 }
-
-

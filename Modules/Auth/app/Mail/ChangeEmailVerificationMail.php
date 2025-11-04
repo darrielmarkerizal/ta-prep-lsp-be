@@ -32,5 +32,3 @@ class ChangeEmailVerificationMail extends Mailable
             ]);
     }
 }
-
-

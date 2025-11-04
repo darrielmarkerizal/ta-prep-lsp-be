@@ -38,7 +38,6 @@ class CourseAdmin extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(\Modules\Auth\Entities\User::class);
+        return $this->belongsTo(\Modules\Auth\Models\User::class);
     }
 }
-

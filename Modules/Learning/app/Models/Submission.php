@@ -9,7 +9,7 @@ class Submission extends Model
     protected $fillable = [
         'assignment_id', 'user_id', 'enrollment_id',
         'answer_text', 'status', 'score', 'feedback',
-        'submitted_at', 'graded_at'
+        'submitted_at', 'graded_at',
     ];
 
     protected $casts = [

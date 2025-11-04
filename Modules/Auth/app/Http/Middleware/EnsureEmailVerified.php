@@ -26,5 +26,3 @@ class EnsureEmailVerified
         return redirect()->away(rtrim(config('app.url'), '/'));
     }
 }
-
-

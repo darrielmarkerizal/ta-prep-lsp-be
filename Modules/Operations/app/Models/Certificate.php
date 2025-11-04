@@ -8,7 +8,7 @@ class Certificate extends Model
 {
     protected $fillable = [
         'user_id', 'course_id', 'certificate_number', 'file_path',
-        'issued_at', 'expired_at', 'status'
+        'issued_at', 'expired_at', 'status',
     ];
 
     protected $casts = [

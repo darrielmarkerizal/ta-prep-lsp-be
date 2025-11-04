@@ -9,5 +9,3 @@ class TokenRefreshed
         public readonly int $refreshTokenId,
     ) {}
 }
-
-

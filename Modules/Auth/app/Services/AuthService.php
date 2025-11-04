@@ -2,16 +2,13 @@
 
 namespace Modules\Auth\Services;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Tymon\JWTAuth\JWTAuth;
-use Modules\Auth\Repositories\AuthRepository;
-use Modules\Auth\Models\User;
 use Modules\Auth\Interfaces\AuthRepositoryInterface;
 use Modules\Auth\Interfaces\AuthServiceInterface;
+use Modules\Auth\Models\User;
 use Modules\Auth\Support\TokenPairDTO;
+use Tymon\JWTAuth\JWTAuth;
 
 class AuthService implements AuthServiceInterface
 {
@@ -44,7 +41,7 @@ class AuthService implements AuthServiceInterface
 
         $this->emailVerification->sendVerificationLink($user);
 
-        return [ 'user' => $user ] + $pair->toArray();
+        return ['user' => $user] + $pair->toArray();
     }
 
     public function login(string $login, string $password, string $ip, ?string $userAgent): array
@@ -55,14 +52,14 @@ class AuthService implements AuthServiceInterface
             $cfg = $this->throttle->getRateLimitConfig();
             $m = intdiv($retryAfter, 60);
             $s = $retryAfter % 60;
-            $retryIn = $m > 0 ? ($m . ' menit' . ($s > 0 ? ' ' . $s . ' detik' : '')) : ($s . ' detik');
+            $retryIn = $m > 0 ? ($m.' menit'.($s > 0 ? ' '.$s.' detik' : '')) : ($s.' detik');
             throw ValidationException::withMessages([
                 'login' => "Terlalu banyak percobaan login. Maksimal {$cfg['max']} kali dalam {$cfg['decay']} menit. Coba lagi dalam {$retryIn}.",
             ]);
         }
 
         $user = $this->authRepository->findActiveUserByLogin($login);
-        if (!$user || !Hash::check($password, $user->password)) {
+        if (! $user || ! Hash::check($password, $user->password)) {
             $this->throttle->hitAttempt($login, $ip);
             $this->throttle->recordFailureAndMaybeLock($login);
             throw ValidationException::withMessages([
@@ -94,13 +91,13 @@ class AuthService implements AuthServiceInterface
         // Successful login: clear rate limiter attempts
         $this->throttle->clearAttempts($login, $ip);
 
-        return [ 'user' => $user ] + $pair->toArray();
+        return ['user' => $user] + $pair->toArray();
     }
 
     public function refresh(User $currentUser, string $refreshToken): array
     {
         $record = $this->authRepository->findValidRefreshRecordByUser($refreshToken, $currentUser->id);
-        if (!$record) {
+        if (! $record) {
             throw ValidationException::withMessages([
                 'refresh_token' => 'Refresh token tidak valid atau kadaluarsa.',
             ]);
@@ -143,5 +140,3 @@ class AuthService implements AuthServiceInterface
         return $user;
     }
 }
-
-

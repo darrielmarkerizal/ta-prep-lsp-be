@@ -8,5 +8,3 @@ class UserLoggedOut
         public readonly int $userId,
     ) {}
 }
-
-

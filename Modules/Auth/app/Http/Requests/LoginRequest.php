@@ -8,6 +8,7 @@ use Modules\Auth\Http\Requests\Concerns\HasCommonValidationMessages;
 class LoginRequest extends FormRequest
 {
     use HasCommonValidationMessages;
+
     public function authorize(): bool
     {
         return true;
@@ -34,5 +35,3 @@ class LoginRequest extends FormRequest
         ]);
     }
 }
-
-

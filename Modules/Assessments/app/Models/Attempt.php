@@ -9,7 +9,7 @@ class Attempt extends Model
     protected $fillable = [
         'exercise_id', 'user_id', 'enrollment_id',
         'score', 'total_questions', 'correct_answers',
-        'status', 'started_at', 'finished_at', 'duration_seconds'
+        'status', 'started_at', 'finished_at', 'duration_seconds',
     ];
 
     protected $casts = [

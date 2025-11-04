@@ -2,8 +2,8 @@
 
 namespace Modules\Auth\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OtpCode extends Model
@@ -76,7 +76,7 @@ class OtpCode extends Model
      */
     public function isValid(): bool
     {
-        return !$this->isConsumed() && !$this->isExpired();
+        return ! $this->isConsumed() && ! $this->isExpired();
     }
 
     /**
@@ -84,12 +84,13 @@ class OtpCode extends Model
      */
     public function verify(string $code): bool
     {
-        if (!$this->isValid()) {
+        if (! $this->isValid()) {
             return false;
         }
 
         if (hash_equals($this->code, $code)) {
             $this->markAsConsumed();
+
             return true;
         }
 
@@ -143,7 +144,7 @@ class OtpCode extends Model
     public function scopeForUser($query, $user)
     {
         $userId = is_object($user) ? $user->id : $user;
+
         return $query->where('user_id', $userId);
     }
 }
-

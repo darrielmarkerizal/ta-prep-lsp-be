@@ -20,9 +20,9 @@ return new class extends Migration
             $table->timestamp('revoked_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-        
+
             $table->index(['user_id', 'revoked_at']);
-        });        
+        });
     }
 
     /**

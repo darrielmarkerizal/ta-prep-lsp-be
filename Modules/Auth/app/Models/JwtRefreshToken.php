@@ -2,8 +2,8 @@
 
 namespace Modules\Auth\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class JwtRefreshToken extends Model
@@ -72,7 +72,7 @@ class JwtRefreshToken extends Model
      */
     public function isValid(): bool
     {
-        return !$this->isRevoked() && !$this->isExpired();
+        return ! $this->isRevoked() && ! $this->isExpired();
     }
 
     /**
@@ -111,4 +111,3 @@ class JwtRefreshToken extends Model
         return $query->where('expires_at', '<=', now());
     }
 }
-

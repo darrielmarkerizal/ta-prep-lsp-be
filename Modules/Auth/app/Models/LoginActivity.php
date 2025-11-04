@@ -2,8 +2,8 @@
 
 namespace Modules\Auth\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LoginActivity extends Model
@@ -101,4 +101,3 @@ class LoginActivity extends Model
         $this->update(['logged_out_at' => now()]);
     }
 }
-

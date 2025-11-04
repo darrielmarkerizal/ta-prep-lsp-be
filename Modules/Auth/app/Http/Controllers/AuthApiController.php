@@ -3,29 +3,26 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
+use Laravel\Socialite\Two\AbstractProvider as SocialiteAbstractProvider;
 use Modules\Auth\Http\Requests\LoginRequest;
 use Modules\Auth\Http\Requests\RegisterRequest;
+use Modules\Auth\Interfaces\AuthRepositoryInterface;
 use Modules\Auth\Models\SocialAccount;
 use Modules\Auth\Models\User;
-use Modules\Auth\Interfaces\AuthRepositoryInterface;
 use Modules\Auth\Services\AuthService;
 use Modules\Auth\Services\EmailVerificationService;
-use App\Support\ApiResponse;
 use Tymon\JWTAuth\JWTAuth;
-use Laravel\Socialite\Two\AbstractProvider as SocialiteAbstractProvider;
 
 class AuthApiController extends Controller
 {
     use ApiResponse;
 
-    public function __construct(private readonly AuthService $auth, private readonly EmailVerificationService $emailVerification)
-    {
-        
-    }
+    public function __construct(private readonly AuthService $auth, private readonly EmailVerificationService $emailVerification) {}
 
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -81,12 +78,12 @@ class AuthApiController extends Controller
 
         /** @var \Modules\Auth\Models\User|null $user */
         $user = auth('api')->user();
-        if (!$user) {
+        if (! $user) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
         $currentJwt = $request->bearerToken();
-        if (!$currentJwt) {
+        if (! $currentJwt) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
@@ -99,7 +96,7 @@ class AuthApiController extends Controller
     {
         /** @var \Modules\Auth\Models\User|null $user */
         $user = auth('api')->user();
-        if (!$user) {
+        if (! $user) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
@@ -110,7 +107,7 @@ class AuthApiController extends Controller
     {
         /** @var \Modules\Auth\Models\User|null $user */
         $user = auth('api')->user();
-        if (!$user) {
+        if (! $user) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
@@ -158,7 +155,7 @@ class AuthApiController extends Controller
             'target_id' => $user->id,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
-            'meta' => [ 'action' => 'profile.update', 'changes' => $changes ],
+            'meta' => ['action' => 'profile.update', 'changes' => $changes],
             'logged_at' => now(),
         ]);
 
@@ -174,6 +171,7 @@ class AuthApiController extends Controller
             /** @var SocialiteAbstractProvider $provider */
             $provider = $provider->stateless();
             $redirectResponse = $provider->redirect();
+
             // For APIs, returning a redirect is acceptable; client follows to Google
             return $redirectResponse;
         } catch (\Throwable $e) {
@@ -201,7 +199,7 @@ class AuthApiController extends Controller
 
         // Find existing user by email or create a new one
         $user = User::query()->where('email', $email)->first();
-        if (!$user) {
+        if (! $user) {
             // Generate unique username from email local part
             $baseUsername = preg_replace('/[^a-z0-9_\.\-]/i', '', explode('@', (string) $email)[0] ?: 'google');
             $username = $baseUsername;
@@ -259,7 +257,7 @@ class AuthApiController extends Controller
     {
         /** @var \Modules\Auth\Models\User|null $user */
         $user = auth('api')->user();
-        if (!$user) {
+        if (! $user) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
@@ -279,7 +277,7 @@ class AuthApiController extends Controller
     {
         /** @var \Modules\Auth\Models\User|null $user */
         $user = auth('api')->user();
-        if (!$user) {
+        if (! $user) {
             return $this->error('Tidak terotorisasi.', 401);
         }
 
@@ -301,7 +299,7 @@ class AuthApiController extends Controller
             'target_id' => $user->id,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
-            'meta' => [ 'action' => 'email.change.request', 'new_email' => $validated['new_email'], 'uuid' => $uuid ],
+            'meta' => ['action' => 'email.change.request', 'new_email' => $validated['new_email'], 'uuid' => $uuid],
             'logged_at' => now(),
         ]);
 
@@ -367,5 +365,3 @@ class AuthApiController extends Controller
         return $this->error('Verifikasi gagal.', 422);
     }
 }
-
-

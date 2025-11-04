@@ -10,24 +10,23 @@ use Modules\Common\Models\SystemSetting;
 
 class LoginThrottlingService
 {
-    public function __construct(private readonly RateLimiter $rateLimiter)
-    {
-    }
+    public function __construct(private readonly RateLimiter $rateLimiter) {}
 
     protected function makeKey(string $login, string $ip): string
     {
         $normalizedLogin = Str::lower(trim($login));
-        return 'auth:login:' . sha1($normalizedLogin . '|' . $ip);
+
+        return 'auth:login:'.sha1($normalizedLogin.'|'.$ip);
     }
 
     protected function lockKey(string $login): string
     {
-        return 'auth:lock:' . sha1(Str::lower(trim($login)));
+        return 'auth:lock:'.sha1(Str::lower(trim($login)));
     }
 
     protected function failuresKey(string $login): string
     {
-        return 'auth:failures:' . sha1(Str::lower(trim($login)));
+        return 'auth:failures:'.sha1(Str::lower(trim($login)));
     }
 
     public function ensureNotLocked(string $login): void
@@ -40,7 +39,7 @@ class LoginThrottlingService
             $window = (int) SystemSetting::get('auth.lockout_window_minutes', 60);
             $minutes = intdiv($remaining, 60);
             $seconds = $remaining % 60;
-            $retryIn = $minutes > 0 ? ($minutes . ' menit' . ($seconds > 0 ? ' ' . $seconds . ' detik' : '')) : ($seconds . ' detik');
+            $retryIn = $minutes > 0 ? ($minutes.' menit'.($seconds > 0 ? ' '.$seconds.' detik' : '')) : ($seconds.' detik');
             throw ValidationException::withMessages([
                 'login' => "Akun terkunci sementara (gagal >= {$threshold} kali dalam {$window} menit). Coba lagi dalam {$retryIn}.",
             ]);
@@ -49,18 +48,19 @@ class LoginThrottlingService
 
     public function tooManyAttempts(string $login, string $ip): bool
     {
-        if (!SystemSetting::get('auth.login_rate_limit_enabled', true)) {
+        if (! SystemSetting::get('auth.login_rate_limit_enabled', true)) {
             return false;
         }
 
         $maxAttempts = (int) SystemSetting::get('auth.login_rate_limit_max_attempts', 5);
         $key = $this->makeKey($login, $ip);
+
         return $this->rateLimiter->tooManyAttempts($key, $maxAttempts);
     }
 
     public function hitAttempt(string $login, string $ip): void
     {
-        if (!SystemSetting::get('auth.login_rate_limit_enabled', true)) {
+        if (! SystemSetting::get('auth.login_rate_limit_enabled', true)) {
             return;
         }
 
@@ -77,7 +77,7 @@ class LoginThrottlingService
 
     public function recordFailureAndMaybeLock(string $login): void
     {
-        if (!SystemSetting::get('auth.lockout_enabled', true)) {
+        if (! SystemSetting::get('auth.lockout_enabled', true)) {
             return;
         }
 
@@ -100,6 +100,7 @@ class LoginThrottlingService
     public function getRetryAfterSeconds(string $login, string $ip): int
     {
         $key = $this->makeKey($login, $ip);
+
         return $this->rateLimiter->availableIn($key);
     }
 
@@ -115,6 +116,7 @@ class LoginThrottlingService
     public function getLockRemainingSeconds(string $login): int
     {
         $unlockAtTs = Cache::get($this->lockKey($login));
+
         return $unlockAtTs ? max(0, $unlockAtTs - time()) : 0;
     }
 
@@ -128,5 +130,3 @@ class LoginThrottlingService
         ];
     }
 }
-
-
