@@ -20,4 +20,15 @@ interface ReactionRepositoryInterface
      * Delete a reaction
      */
     public function delete(Reaction $reaction): bool;
+
+    /**
+     * Toggle a reaction (add if absent, remove if present)
+     *
+     * @param int $userId
+     * @param string $reactableType
+     * @param int $reactableId
+     * @param string|null $reaction
+     * @return Reaction|bool
+     */
+    public function toggle(int $userId, string $reactableType, int $reactableId, ?string $reaction = null): Reaction|bool;
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Modules\Auth\Contracts\Repositories\PasswordResetTokenRepositoryInterface;
+use Modules\Auth\Contracts\Repositories\AuthRepositoryInterface;
 use Modules\Auth\Http\Requests\ChangePasswordRequest;
 use Modules\Auth\Http\Requests\ForgotPasswordRequest;
 use Modules\Auth\Http\Requests\ResetPasswordRequest;
@@ -22,7 +23,8 @@ class PasswordResetController extends Controller
     use ApiResponse;
 
     public function __construct(
-        private PasswordResetTokenRepositoryInterface $passwordResetTokenRepository
+        private PasswordResetTokenRepositoryInterface $passwordResetTokenRepository,
+        private UserRepositoryInterface $userRepository
     ) {}
 
     /**
@@ -44,11 +46,7 @@ class PasswordResetController extends Controller
         $validated = $request->validated();
 
         /** @var User|null $user */
-        $user = User::query()
-            ->where(
-                fn ($q) => $q->where('email', $validated['login'])->orWhere('username', $validated['login']),
-            )
-            ->first();
+        $user = $this->userRepository->findByEmailOrUsername($validated['login']);
         if (! $user) {
             return $this->success([], __('messages.password.reset_sent'));
         }
@@ -114,7 +112,7 @@ class PasswordResetController extends Controller
         }
 
         /** @var User|null $user */
-        $user = User::query()->where('email', $matched->email)->first();
+        $user = $this->userRepository->findByEmail($matched->email);
         if (! $user) {
             $this->passwordResetTokenRepository->deleteByEmail($matched->email);
 

@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Forums\Contracts\Repositories\ThreadRepositoryInterface;
 use Modules\Forums\Contracts\Services\ForumServiceInterface;
+use Modules\Forums\Http\Requests\CreateThreadRequest;
 use Modules\Forums\Http\Requests\UpdateThreadRequest;
 use Modules\Forums\Services\ModerationService;
 

@@ -132,7 +132,9 @@ class EnrollmentsController extends Controller
         $user = auth('api')->user();
 
         if ($user->hasRole('Superadmin')) {
-            return $this->index($request);
+            $perPage = max(1, (int) $request->query('per_page', 15));
+            $paginator = $this->service->paginateAll($perPage);
+            return $this->paginateResponse($paginator, __('messages.enrollments.list_retrieved'));
         }
 
         if (! $user->hasRole('Admin') && ! $user->hasRole('Instructor')) {
@@ -315,7 +317,7 @@ class EnrollmentsController extends Controller
         }
 
         // Check if user can view this enrollment
-        if (! $this->authorize('view', $enrollment) && ! $this->userCanManageCourse($user, $course)) {
+        if (! \Gate::allows('view', $enrollment) && ! $this->userCanManageCourse($user, $course)) {
             return $this->error(__('messages.enrollments.no_view_status_access'), 403);
         }
 

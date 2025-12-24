@@ -180,13 +180,9 @@ class LessonController extends Controller
                 $authorized = true;
             }
         } elseif ($user->hasRole('Student')) {
-            $enrollment = \Modules\Enrollments\Models\Enrollment::where('user_id', $user->id)
-                ->where('course_id', $course)
-                ->whereIn('status', ['active', 'completed'])
-                ->exists();
-            if ($enrollment) {
-                $authorized = true;
-            }
+            if ($this->enrollmentService->isUserEnrolledInCourse($user->id, $course)) {
+                 $authorized = true;
+             }
         }
 
         if (! $authorized) {

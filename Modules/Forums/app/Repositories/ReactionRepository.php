@@ -25,4 +25,9 @@ class ReactionRepository implements ReactionRepositoryInterface
     {
         return $reaction->delete();
     }
+
+    public function toggle(int $userId, string $reactableType, int $reactableId, string $type): bool
+    {
+        return Reaction::toggle($userId, $reactableType, $reactableId, $type);
+    }
 }

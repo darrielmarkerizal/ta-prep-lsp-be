@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Modules\Gamification\Services\ChallengeService;
 use Modules\Gamification\Services\GamificationService;
 use Modules\Gamification\Services\LeaderboardService;
+use Modules\Gamification\Contracts\Repositories\PointRepositoryInterface;
+use Modules\Gamification\Contracts\Repositories\UserBadgeRepositoryInterface;
+use Modules\Gamification\Contracts\Repositories\UserGamificationStatRepositoryInterface;
 
 /**
  * @tags Gamifikasi
@@ -16,15 +19,6 @@ use Modules\Gamification\Services\LeaderboardService;
 class GamificationController extends Controller
 {
     use ApiResponse;
-
-    public function __construct(
-        private readonly GamificationService $gamificationService,
-        private readonly LeaderboardService $leaderboardService,
-        private readonly ChallengeService $challengeService,
-        private readonly UserGamificationStatRepositoryInterface $statRepository,
-        private readonly UserBadgeRepositoryInterface $badgeRepository,
-        private readonly PointRepositoryInterface $pointRepository
-    ) {}
 
     /**
      * Mengambil ringkasan gamifikasi user
@@ -68,7 +62,7 @@ class GamificationController extends Controller
      *
      * @summary Mengambil daftar badge user
      *
-     * @response 200 scenario="Success" {"success": true, "data": {"badges": [{"id": 1, "code": "first_login", "name": "Pemula", "description": "Login pertama kali", "icon_url": "https://example.com/badges/first_login.png", "type": "achievement", "awarded_at": "2024-01-15T10:00:00Z"}]}}
+     * @response 200 scenario="Success" {"success": true, "data": {"badges": [{"id": 1, "code": "first_login", "name": "Pemula", "description": "Login pertama kali", "icon_url": "https://example.com/badges/first_login.png", "type": "achievement", "earned_at": "2024-01-15T10:00:00Z"}]}}
      *
      * @authenticated
      */
@@ -85,7 +79,7 @@ class GamificationController extends Controller
                     'description' => $userBadge->description ?? $userBadge->badge?->description,
                     'icon_url' => $userBadge->badge?->icon_url,
                     'type' => $userBadge->badge?->type?->value,
-                    'awarded_at' => $userBadge->awarded_at,
+                    'earned_at' => $userBadge->earned_at,
                 ];
             });
 

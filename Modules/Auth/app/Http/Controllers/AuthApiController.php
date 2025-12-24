@@ -696,17 +696,7 @@ class AuthApiController extends Controller
             return $this->error(__('messages.auth.admin_only'), 422);
         }
 
-        $reflection = new \ReflectionClass($this->auth);
-        $passwordPlain = $reflection
-            ->getMethod('generatePasswordFromNameEmail')
-            ->invoke($this->auth, $target->name, $target->email);
-        $target->password = \Illuminate\Support\Facades\Hash::make($passwordPlain);
-        $target->save();
-
-        $reflection
-            ->getMethod('sendGeneratedPasswordEmail')
-            ->invoke($this->auth, $target, $passwordPlain);
-
+        $this->auth->resendCredentialsToUser($target);
         return $this->success(['user' => $target->toArray()], __('messages.auth.credentials_resent'));
     }
 

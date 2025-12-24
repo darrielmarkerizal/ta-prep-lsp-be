@@ -201,7 +201,7 @@ class ContentApprovalController extends Controller
     {
         return match ($type) {
             'news' => $this->newsRepository->findWithRelations($id),
-            'announcement' => $this->announcementRepository->findById($id),
+            'announcement' => $this->announcementRepository->findWithRelations($id),
             default => null,
         };
     }

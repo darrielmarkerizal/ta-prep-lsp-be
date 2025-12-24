@@ -20,7 +20,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 class CourseService implements CourseServiceInterface
 {
     public function __construct(
-        private readonly CourseRepositoryInterface $repository
+        private readonly CourseRepositoryInterface $repository,
+        private readonly \App\Contracts\EnrollmentKeyHasherInterface $keyHasher
     ) {}
 
     public function paginate(int $perPage = 15): LengthAwarePaginator
@@ -260,10 +261,7 @@ class CourseService implements CourseServiceInterface
             return false;
         }
 
-        // Get the hasher from container
-        $hasher = app(\App\Contracts\EnrollmentKeyHasherInterface::class);
-
-        return $hasher->verify($plainKey, $course->enrollment_key_hash);
+        return $this->keyHasher->verify($plainKey, $course->enrollment_key_hash);
     }
 
     /**

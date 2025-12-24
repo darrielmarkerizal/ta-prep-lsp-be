@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/Users/darrielmarkerizal/Coding/prep-lsp/ta-prep-lsp-be/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="5.475917">
+    <testsuite name="Modules" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="5.475917">
+      <testsuite name="Modules\Content\Tests\Feature\AnnouncementApiTest" file="Announcement Api (Modules\Content\Tests\Feature\AnnouncementApi)" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="5.475917">
+        <testcase name="Admin can create announcement with valid data" file="Announcement Api (Modules\Content\Tests\Feature\AnnouncementApi)::Admin can create announcement with valid data" class="Modules\Content\Tests\Feature\AnnouncementApiTest" classname="Modules.Content.Tests.Feature.AnnouncementApiTest" assertions="1" time="5.475917">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Admin can create announcement with valid dataExpected response status code [201] but received 403.
+Failed asserting that 403 is identical to 201.
+at vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+at vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:160
+at Modules/Content/tests/Feature/AnnouncementApiTest.php:62</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

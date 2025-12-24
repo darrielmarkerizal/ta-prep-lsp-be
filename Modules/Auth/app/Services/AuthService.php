@@ -27,6 +27,16 @@ use Tymon\JWTAuth\JWTAuth;
 
 class AuthService implements AuthServiceInterface
 {
+    /**
+     * Generate a new password, hash and save it to the user, and send credentials email.
+     */
+    public function resendCredentialsToUser(User $user): void
+    {
+        $passwordPlain = $this->generatePasswordFromNameEmail($user->name, $user->email);
+        $user->password = Hash::make($passwordPlain);
+        $user->save();
+        $this->sendGeneratedPasswordEmail($user, $passwordPlain);
+    }
     public function __construct(
         private readonly AuthRepositoryInterface $authRepository,
         private readonly JWTAuth $jwt,

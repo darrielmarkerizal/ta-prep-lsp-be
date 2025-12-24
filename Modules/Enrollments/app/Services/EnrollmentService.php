@@ -22,6 +22,7 @@ use Modules\Enrollments\Models\Enrollment;
 use Modules\Schemes\Models\Course;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Support\Helpers\UrlHelper;
 
 class EnrollmentService implements EnrollmentServiceInterface
 {

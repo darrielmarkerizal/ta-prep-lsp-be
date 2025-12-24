@@ -1,0 +1,483 @@
+{
+    "spatie": [
+        {
+            "file": "app\/Repositories\/ActivityLogRepository.php",
+            "class": "ActivityLogRepository",
+            "namespace": "App\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "log_name",
+                "event",
+                "subject_type",
+                "subject_id",
+                "causer_type",
+                "causer_id"
+            ],
+            "allowed_sorts": [
+                "id",
+                "created_at",
+                "event",
+                "log_name"
+            ],
+            "default_sort": "-created_at",
+            "has_paginate_method": true,
+            "filter_methods": []
+        },
+        {
+            "file": "app\/Repositories\/MasterDataRepository.php",
+            "class": "MasterDataRepository",
+            "namespace": "App\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "is_active",
+                "is_system",
+                "value",
+                "label"
+            ],
+            "allowed_sorts": [
+                "value",
+                "label",
+                "sort_order",
+                "created_at",
+                "updated_at"
+            ],
+            "default_sort": "sort_order",
+            "has_paginate_method": true,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Common\/app\/Repositories\/CategoryRepository.php",
+            "class": "CategoryRepository",
+            "namespace": "Modules\\Common\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "name",
+                "value",
+                "description",
+                "status"
+            ],
+            "allowed_sorts": [
+                "name",
+                "value",
+                "status",
+                "created_at",
+                "updated_at"
+            ],
+            "default_sort": "-created_at",
+            "has_paginate_method": true,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Enrollments\/app\/Repositories\/EnrollmentRepository.php",
+            "class": "EnrollmentRepository",
+            "namespace": "Modules\\Enrollments\\Repositories",
+            "extends": null,
+            "implements": [
+                "EnrollmentRepositoryInterface"
+            ],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "status",
+                "user_id",
+                "enrolled_at",
+                "completed_at"
+            ],
+            "allowed_sorts": [
+                "id",
+                "created_at",
+                "updated_at",
+                "status",
+                "enrolled_at",
+                "completed_at",
+                "progress_percent"
+            ],
+            "default_sort": "-created_at",
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Schemes\/app\/Repositories\/CourseRepository.php",
+            "class": "CourseRepository",
+            "namespace": "Modules\\Schemes\\Repositories",
+            "extends": null,
+            "implements": [
+                "CourseRepositoryInterface"
+            ],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "status",
+                "level_tag",
+                "type",
+                "category_id"
+            ],
+            "allowed_sorts": [
+                "id",
+                "code",
+                "title",
+                "created_at",
+                "updated_at",
+                "published_at"
+            ],
+            "default_sort": "title",
+            "has_paginate_method": true,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Schemes\/app\/Repositories\/LessonRepository.php",
+            "class": "LessonRepository",
+            "namespace": "Modules\\Schemes\\Repositories",
+            "extends": null,
+            "implements": [
+                "LessonRepositoryInterface"
+            ],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "status",
+                "content_type"
+            ],
+            "allowed_sorts": [
+                "id",
+                "title",
+                "order",
+                "status",
+                "duration_minutes",
+                "created_at",
+                "updated_at",
+                "published_at"
+            ],
+            "default_sort": "order",
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Schemes\/app\/Repositories\/UnitRepository.php",
+            "class": "UnitRepository",
+            "namespace": "Modules\\Schemes\\Repositories",
+            "extends": null,
+            "implements": [
+                "UnitRepositoryInterface"
+            ],
+            "uses_spatie": true,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [
+                "status"
+            ],
+            "allowed_sorts": [
+                "id",
+                "code",
+                "title",
+                "order",
+                "status",
+                "created_at",
+                "updated_at"
+            ],
+            "default_sort": "order",
+            "has_paginate_method": false,
+            "filter_methods": []
+        }
+    ],
+    "custom": [
+        {
+            "file": "app\/Repositories\/BaseRepository.php",
+            "class": "BaseRepository",
+            "namespace": "App\\Repositories",
+            "extends": null,
+            "implements": [
+                "BaseRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": true,
+            "allowed_filters": [],
+            "allowed_sorts": [
+                "id",
+                "created_at",
+                "updated_at"
+            ],
+            "default_sort": "id",
+            "has_paginate_method": true,
+            "filter_methods": []
+        }
+    ],
+    "none": [
+        {
+            "file": "Modules\/Auth\/app\/Repositories\/AuthRepository.php",
+            "class": "AuthRepository",
+            "namespace": "Modules\\Auth\\Repositories",
+            "extends": null,
+            "implements": [
+                "AuthRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Content\/app\/Repositories\/AnnouncementRepository.php",
+            "class": "AnnouncementRepository",
+            "namespace": "Modules\\Content\\Repositories",
+            "extends": null,
+            "implements": [
+                "AnnouncementRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": [
+                "getAnnouncementsForUser",
+                "getAnnouncementsForCourse"
+            ]
+        },
+        {
+            "file": "Modules\/Content\/app\/Repositories\/ContentStatisticsRepository.php",
+            "class": "ContentStatisticsRepository",
+            "namespace": "Modules\\Content\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": [
+                "getAnnouncementStatistics",
+                "getNewsStatistics"
+            ]
+        },
+        {
+            "file": "Modules\/Content\/app\/Repositories\/NewsRepository.php",
+            "class": "NewsRepository",
+            "namespace": "Modules\\Content\\Repositories",
+            "extends": null,
+            "implements": [
+                "NewsRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": [
+                "getNewsFeed",
+                "searchNews"
+            ]
+        },
+        {
+            "file": "Modules\/Forums\/app\/Repositories\/ForumStatisticsRepository.php",
+            "class": "ForumStatisticsRepository",
+            "namespace": "Modules\\Forums\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Forums\/app\/Repositories\/ReplyRepository.php",
+            "class": "ReplyRepository",
+            "namespace": "Modules\\Forums\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Forums\/app\/Repositories\/ThreadRepository.php",
+            "class": "ThreadRepository",
+            "namespace": "Modules\\Forums\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": [
+                "getThreadsForScheme"
+            ]
+        },
+        {
+            "file": "Modules\/Gamification\/app\/Repositories\/ChallengeRepository.php",
+            "class": "ChallengeRepository",
+            "namespace": "Modules\\Gamification\\Repositories",
+            "extends": null,
+            "implements": [
+                "ChallengeRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": true,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Gamification\/app\/Repositories\/GamificationRepository.php",
+            "class": "GamificationRepository",
+            "namespace": "Modules\\Gamification\\Repositories",
+            "extends": null,
+            "implements": [
+                "GamificationRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Grading\/app\/Repositories\/GradingRepository.php",
+            "class": "GradingRepository",
+            "namespace": "Modules\\Grading\\Repositories",
+            "extends": null,
+            "implements": [
+                "GradingRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": true,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Learning\/app\/Repositories\/AssignmentRepository.php",
+            "class": "AssignmentRepository",
+            "namespace": "Modules\\Learning\\Repositories",
+            "extends": null,
+            "implements": [
+                "AssignmentRepositoryInterface"
+            ],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": [
+                "listForLesson"
+            ]
+        },
+        {
+            "file": "Modules\/Learning\/app\/Repositories\/LearningRepository.php",
+            "class": "LearningRepository",
+            "namespace": "Modules\\Learning\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Learning\/app\/Repositories\/SubmissionRepository.php",
+            "class": "SubmissionRepository",
+            "namespace": "Modules\\Learning\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": [
+                "listForAssignment"
+            ]
+        },
+        {
+            "file": "Modules\/Notifications\/app\/Repositories\/NotificationsRepository.php",
+            "class": "NotificationsRepository",
+            "namespace": "Modules\\Notifications\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        },
+        {
+            "file": "Modules\/Operations\/app\/Repositories\/OperationsRepository.php",
+            "class": "OperationsRepository",
+            "namespace": "Modules\\Operations\\Repositories",
+            "extends": null,
+            "implements": [],
+            "uses_spatie": false,
+            "uses_custom_filter": false,
+            "uses_filterable_trait": false,
+            "allowed_filters": [],
+            "allowed_sorts": [],
+            "default_sort": null,
+            "has_paginate_method": false,
+            "filter_methods": []
+        }
+    ],
+    "summary": {
+        "total": 23,
+        "spatie_count": 7,
+        "custom_count": 1,
+        "none_count": 15
+    }
+}

@@ -17,7 +17,7 @@ class UserBadgeRepository implements UserBadgeRepositoryInterface
     {
         return UserBadge::with(['badge', 'badge.media'])
             ->where('user_id', $userId)
-            ->orderByDesc('awarded_at')
+            ->orderByDesc('earned_at')
             ->get();
     }
 
